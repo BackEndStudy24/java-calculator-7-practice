@@ -7,13 +7,14 @@ import calculator.utils.InputView;
 public class Controller {
 
     final Delimiter delimiter = new Delimiter();
-    final Number number = new Number();
+    final Number number = new Number(delimiter);
 
     public void start() {
-        clientInput();
+        String rawNumbers = clientInput();
+        addNumber(rawNumbers);
     }
 
-    private void clientInput() {
+    private String clientInput() {
         String rawInput = InputView.inputMessage();
         delimiter.setNewRawInput(rawInput);
 
@@ -21,10 +22,10 @@ public class Controller {
            delimiter.extractCustomDelimiter(delimiter.getNewRawInput());
         }
 
-        String newRawInput = delimiter.getNewRawInput();
+        return delimiter.getNewRawInput();
+    }
 
-        System.out.println(newRawInput);
-        System.out.println(delimiter.getCustomDelimiter());
-
+    private void addNumber(String rawNumbers) {
+        number.extractNumbers(rawNumbers);
     }
 }
