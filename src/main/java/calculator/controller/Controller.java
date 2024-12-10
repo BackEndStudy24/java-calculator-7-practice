@@ -27,5 +27,6 @@ public class Controller {
 
     private void addNumber(String rawNumbers) {
         number.extractNumbers(rawNumbers);
+        System.out.printf("결과 : %d", number.getTotalValue());
     }
 }

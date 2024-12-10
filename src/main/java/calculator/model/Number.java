@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Number {
 
-    private List<Integer> nums = new ArrayList<>();
+    private final List<Integer> nums = new ArrayList<>();
     private final Delimiter delimiter;
 
     public Number(Delimiter delimiter) {
@@ -35,6 +35,14 @@ public class Number {
             nums.add(parseNum);
         }
 
+    }
+
+    public int getTotalValue() {
+        int totalValue = 0;
+        for (Integer num : nums) {
+            totalValue += num;
+        }
+        return totalValue;
     }
 
 }
