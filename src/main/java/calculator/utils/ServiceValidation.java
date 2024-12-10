@@ -10,4 +10,10 @@ public class ServiceValidation {
         }
     }
 
+    public static void invalidNegativeNumber(int input) {
+        if(input < 0) {
+            throw new IllegalArgumentException(ErrorMessageType.NEGATIVE_NUMBER_ERROR_MESSAGE.getMessage());
+        }
+    }
+
 }
