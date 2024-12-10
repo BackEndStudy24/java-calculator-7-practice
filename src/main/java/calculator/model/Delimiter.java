@@ -9,27 +9,35 @@ public class Delimiter {
     private final static String COLON = ":";
 
     private List<String> customDelimiter = new ArrayList<>();
+    private String newRawInput;
 
-    public String getCustomDelimiter(String rawInput) {
+    public void extractCustomDelimiter(String rawInput) {
         if(rawInput.startsWith("//") && rawInput.contains("\\n")) {
 
             int customMark = rawInput.indexOf("\\n");
             int slashMark = rawInput.indexOf("//");
 
             String cusDelimiter = rawInput.substring(slashMark+2, customMark);
-            setCustomDelimiter(customDelimiter);
 
+            addCustomDelimiter(cusDelimiter);
+            setNewRawInput(rawInput.substring(customMark+2));
 
-            return rawInput.substring(customMark+2);
         }
-        return rawInput;
     }
 
-    public void setCustomDelimiter(List<String> customDelimiter) {
-        this.customDelimiter = customDelimiter;
+    public void addCustomDelimiter(String cusDelimiter) {
+        this.customDelimiter.add(cusDelimiter);
     }
 
     public List<String> getCustomDelimiter() {
         return customDelimiter;
+    }
+
+    public void setNewRawInput(String newRawInput) {
+        this.newRawInput = newRawInput;
+    }
+
+    public String getNewRawInput() {
+        return newRawInput;
     }
 }

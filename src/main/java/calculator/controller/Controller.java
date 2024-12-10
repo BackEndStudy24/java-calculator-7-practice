@@ -15,8 +15,16 @@ public class Controller {
 
     private void clientInput() {
         String rawInput = InputView.inputMessage();
+        delimiter.setNewRawInput(rawInput);
 
-        String newRawInput = delimiter.getCustomDelimiter(rawInput);
+        while (delimiter.getNewRawInput().contains("//")) {
+           delimiter.extractCustomDelimiter(delimiter.getNewRawInput());
+        }
+
+        String newRawInput = delimiter.getNewRawInput();
+
+        System.out.println(newRawInput);
+        System.out.println(delimiter.getCustomDelimiter());
 
     }
 }
