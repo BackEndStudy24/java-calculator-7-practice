@@ -1,13 +1,13 @@
 package calculator.model;
 
+import calculator.utils.ServiceValidation;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Number {
 
-    private final static String COMMA = ",";
-    private final static String COLON = ":";
     private List<Integer> nums = new ArrayList<>();
     private final Delimiter delimiter;
 
@@ -19,20 +19,22 @@ public class Number {
         List<String> customDelimiter = delimiter.getCustomDelimiter();
 
         StringBuilder sb = new StringBuilder(",|:");
-        for (int i = 0; i < customDelimiter.size(); i++) {
-            sb.append("|").append(customDelimiter.get(i));
+        for (String s : customDelimiter) {
+            sb.append("|").append(s);
         }
 
-        System.out.println(sb);
-
         String[] strNums = rawInput.split(sb.toString());
-        System.out.println(Arrays.toString(strNums));
 
+        List<String> strNumList = Arrays.stream(strNums)
+                .map(String::trim)
+                .toList();
+
+        for (String string : strNumList) {
+            int parseNum = ServiceValidation.invalidNumberFormat(string);
+            ServiceValidation.invalidNegativeNumber(parseNum);
+            nums.add(parseNum);
+        }
 
     }
 
-
-    public void addNum(int num) {
-        this.nums.add(num);
-    }
 }
