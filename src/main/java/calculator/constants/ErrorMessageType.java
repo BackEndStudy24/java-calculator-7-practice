@@ -3,7 +3,8 @@ package calculator.constants;
 public enum ErrorMessageType {
 
     NULL_ERROR_MESSAGE("[ERROR] 공백은 입력할 수 없습니다. 다시 입력 해주세요."),
-    NEGATIVE_NUMBER_ERROR_MESSAGE("[ERROR] 음수는 입력할 수 없습니다. 다시 입력 해주세요.");
+    NEGATIVE_NUMBER_ERROR_MESSAGE("[ERROR] 음수는 입력할 수 없습니다. 다시 입력 해주세요."),
+    NUMBER_FORMAT_ERROR_MESSAGE("[ERROR] 양의 정수만 입력할 수 있습니다. 다시 입력 해주세요.");
 
     private final String message;
 
