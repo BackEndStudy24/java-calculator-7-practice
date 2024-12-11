@@ -21,7 +21,7 @@ public class ServiceValidation {
     public static int invalidNumberFormat(String input) {
         try {
             return Integer.parseInt(input);
-        } catch (IllegalFormatException e) {
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException(ErrorMessageType.NUMBER_FORMAT_ERROR_MESSAGE.getMessage());
         }
     }

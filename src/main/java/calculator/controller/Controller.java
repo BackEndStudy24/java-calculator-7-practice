@@ -2,7 +2,9 @@ package calculator.controller;
 
 import calculator.model.Delimiter;
 import calculator.model.Number;
-import calculator.utils.InputView;
+import calculator.view.InputView;
+import calculator.utils.ServiceValidation;
+
 
 public class Controller {
 
@@ -10,23 +12,37 @@ public class Controller {
     final Number number = new Number(delimiter);
 
     public void start() {
-        String rawNumbers = clientInput();
-        addNumber(rawNumbers);
+        runWithRetry(this::clientInput);
+        addNumber();
     }
 
-    private String clientInput() {
+    private void clientInput() {
         String rawInput = InputView.inputMessage();
+        ServiceValidation.invalidInputNull(rawInput);
         delimiter.setNewRawInput(rawInput);
 
         while (delimiter.getNewRawInput().contains("//")) {
            delimiter.extractCustomDelimiter(delimiter.getNewRawInput());
         }
 
-        return delimiter.getNewRawInput();
     }
 
-    private void addNumber(String rawNumbers) {
-        number.extractNumbers(rawNumbers);
+    private void addNumber() {
+        String rawInput = delimiter.getNewRawInput();
+        number.extractNumbers(rawInput);
         System.out.printf("결과 : %d", number.getTotalValue());
     }
+
+    private void runWithRetry(Runnable serviceMethod) {
+        boolean success = false;
+        while (!success) {
+            try {
+                serviceMethod.run();
+                success = true;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
 }
